@@ -14,7 +14,7 @@ struct Place {
     let title: String
     let location: CLLocation
     
-    static var cities = [Place(title: "Spb", location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)),
-                         Place(title: "Moscow", location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)),
-                         Place(title: "Paris", location: <#T##CLLocation#>)]
+    //static var cities = [Place(title: "Spb", location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)),
+    //                     Place(title: "Moscow", location: CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)),
+     //                    Place(title: "Paris", location: <#T##CLLocation#>)]
 }
