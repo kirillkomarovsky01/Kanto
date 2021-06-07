@@ -13,10 +13,14 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     let locationManager = CLLocationManager()
+    let modelCity = ModelCity()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        for city in modelCity.cities{
+            mapView.addAnnotation(city)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
