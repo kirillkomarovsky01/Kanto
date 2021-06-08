@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.mapView.delegate = self
         for city in modelCity.cities{
             mapView.addAnnotation(city)
         }
@@ -89,5 +89,25 @@ extension MapViewController: CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuto()
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? City else { return nil }
+        let viewMarker: MKMarkerAnnotationView
+        let idView = "marker"
+        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: idView) as? MKMarkerAnnotationView {
+            view.annotation = annotation
+            viewMarker = view
+        } else {
+            viewMarker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: idView)
+            viewMarker.canShowCallout = true
+            viewMarker.calloutOffset = CGPoint(x: 0, y: 6)
+            viewMarker.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        
+        return viewMarker
     }
 }
