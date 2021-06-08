@@ -110,4 +110,34 @@ extension MapViewController: MKMapViewDelegate {
         
         return viewMarker
     }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let coordinate = locationManager.location?.coordinate else { return }
+        
+        self.mapView.removeOverlays(mapView.overlays)
+        
+        let city = view.annotation as! City
+        let startPoint = MKPlacemark(coordinate: coordinate)
+        let endPoint = MKPlacemark(coordinate: city.coordinate)
+        
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: startPoint)
+        request.destination = MKMapItem(placemark: endPoint)
+        request.transportType = .automobile
+        
+        let direction = MKDirections(request: request)
+        direction.calculate { (response, error) in
+            guard let response = response else { return }
+            for route in response.routes {
+                self.mapView.addOverlay(route.polyline)
+            }
+        }
+    }
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let render = MKPolylineRenderer(overlay: overlay)
+        render.strokeColor = .blue
+        render.lineWidth = 4
+        
+        return render
+    }
 }
