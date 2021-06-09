@@ -11,14 +11,20 @@ import MapKit
 class MapViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
-    
+
     let locationManager = CLLocationManager()
     let modelCity = ModelCity()
     
+    var cities: [City] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-        for city in modelCity.cities{
+        cities.append(modelCity.city1)
+        cities.append(modelCity.city2)
+        cities.append(modelCity.city3)
+        cities.append(modelCity.city4)
+        for city in cities{
             mapView.addAnnotation(city)
         }
     }
@@ -34,7 +40,6 @@ class MapViewController: UIViewController {
             checkAuto()
         } else {
             showAlertLocation(title: "У вас выключена геолокация", message: "Желаете включить?", url: URL(string: "App-Prefs:root=LOCATION_SERVICES"))
-           
         }
     }
     
